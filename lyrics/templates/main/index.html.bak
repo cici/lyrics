@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Lyric Analyzer{% endblock %}
+
+{% block body %}
+
+<form>
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="writerId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Writer
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    {% for writer in writerList %}
+    <a class="dropdown-item" href="#">{{ writer.name }}</a>
+    {% endfor %}
+  </div>
+
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="performerId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Performer
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    {% for performer in performerList %}
+    <a class="dropdown-item" href="#">{{ performer.name }}</a>
+    {% endfor %}
+  </div>
+</div>
+</form>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-xs-center">Songs</h1>
+        </div>
+    </div>
+	{% for song in latest_songs %}
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object" src="http://placehold.it/150x150">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{loop.index}}. {{ song.title }}</h4>
+                        <p>{{ song.lyrics| truncate(400) }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+	{% endfor %}
+{% endblock %}

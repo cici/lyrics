@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Lyric Analyzer{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-6">
+    <form method="POST" action="{{ url_for('main.test') }}">
+        <div class="form-group">
+           <label for="performer">Performer</label>
+           <select id="performer" name="option" width="300px">
+              {% for performer in performers %}
+              <option value="{{ performer.id }}"{% if loop.first %} SELECTED{% endif %}>{{ performer.name }}</option>
+              {% endfor %}
+           </select>
+           <label for="writer">Writer</label>
+           <select id="writer" name="option" width="300px">
+              {% for writer in writers %}
+              <option value="{{ writer.id }}"{% if loop.first %} SELECTED{% endif %}>{{ writer.name }}</option>
+              {% endfor %}
+           </select>
+        </div>
+        <button type="submit" class="btn btn-default">Go</button>
+    </form>
+</div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-xs-center">Songs</h1>
+        </div>
+    </div>
+	{% for song in song_list %}
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object" src="http://placehold.it/150x150">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{loop.index}}. {{ song.title }}</h4>
+                        {% for line in song.lyrics.splitlines() %}
+                            {{line}}<br>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+	{% endfor %}
+{% endblock %}

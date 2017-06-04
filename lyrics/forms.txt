@@ -1,0 +1,18 @@
+from wtforms.fields import QuerySelectField
+from .models import Writer, Performer
+from wtforms import Form
+#from flask_wtf import FlaskForm
+
+def writerList():
+    return Writer.query()
+
+def performerList():
+    return Performer.query().all()
+
+class SearchForm(Form):
+    writer = QuerySelectField(query_factory=writerList,
+                                get_label='Writer',
+                                allow_blank=False)
+    performer = QuerySelectField(query_factory=performerList,
+                                get_label='Performer',
+                                allow_blank=False)
